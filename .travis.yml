@@ -14,16 +14,16 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "hopflix-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test             # test the code
   - npm run build-client # make the bundle
 
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: hopflix # see README
+  api_key:
+    secure: dgP5ngn6cp+AKQuA6Przlo5/V5OYKYb3gDYRiQx7FGHxtIQQ5dwCZI5yzIuGvTxoBGWTXtUYUPcwQszIb4tmm+Xd91OQS4rXszxwFdBRvB8WKodMggvNrZb0RzI2g1CjwTD7jB4Clo1gGc/wgxHxBcgd4U9BNxVCWw2XKnfE4YA5QZOknQvT6crt0401QHuhbezGT+qzM3r3ObCldP9X4PDHIKqeu/MFvShDbDgNxF1bt8tnDM/AnIbirCYw1rC2z07RRLtuBswoOLJ1HPANKbUBiP+8T3k6kbopBISwOkzFonOvaAN7kh+jK55JXll/CJBn+chIiOMBJObHc8dnTEaLyvevlPe+wLcZ1+bS7BiVn7WOJxQ7/hvv07LKfVs0o1NaJ+um52imfyLKW+ogcbZdbqp9z2RYd8pgp4vIdoZn/PBCkoWryyll9lwTMW5yQRvAMqwlGMoyH95uD7Qien9nlZ0MO8kDtrZ/6s2PtGghMKrjYCoWdFDQL3CJeVz9OdC35w7/AxsdEYNFBhceH8716TAtXlwzIpRJlKyzCdxVEZZdptMMtO6HKizmIDCdm/tvxlvTD7b9RndJJTRGu1r13LknEJgF7OyibCoFMOrXOS3r6TIc1rEjIYUNpjqNzZoQU8wa7AHIbcTjQYFJuQ6sFxN2kbR67oFnyUvXx9M= # see README
