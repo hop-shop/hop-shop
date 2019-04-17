@@ -1,7 +1,5 @@
 const router = require('express').Router()
-const {
-  Movie
-} = require('../db/models')
+const { Movie  } = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
