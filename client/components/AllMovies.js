@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
+import {Link} from 'react-router-dom'
 
 class disconnectedAllMovies extends Component {
   componentDidMount() {
@@ -12,9 +13,11 @@ class disconnectedAllMovies extends Component {
     return this.props.movies.map(movie => {
       return (
         <div key={movie.id}>
+        <Link to={`movies/${movie.id}`}>
           <h3>{movie.title}</h3>
-          <img src={movie.img} />
+          <img src={movie.imageUrl} />
           <span>{movie.price}</span>
+        </Link>
         </div>
       )
     })
