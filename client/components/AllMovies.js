@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 
-class disconnectedAllMovies extends Component {
+export class DisconnectedAllMovies extends Component {
   componentDidMount() {
     this.props.fetchMovies()
   }
@@ -38,4 +38,4 @@ const mapDispatchToProps = dispatch => {
 export const AllMovies = connect(
   mapStateToProps,
   mapDispatchToProps
-)(disconnectedAllMovies)
+)(DisconnectedAllMovies)
