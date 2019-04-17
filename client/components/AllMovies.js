@@ -7,7 +7,7 @@ class disconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
-    console.log('in the component')
+   // console.log('in the component')
 
     return this.props.movies.map(movie => {
       return (
