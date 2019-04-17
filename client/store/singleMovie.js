@@ -9,8 +9,7 @@ const getSingleMovie = (movie) => ({
   movie
 })
 
-export const fetchMovieThunk = (id) => async
-  dispatch => {
+export const fetchMovieThunk = (id) => async dispatch => {
     try {
       console.log('Thunk helloz')
       const {data} = await axios.get(`/api/movies/${id}`)
@@ -23,7 +22,7 @@ export const fetchMovieThunk = (id) => async
   export default function(state = {}, action) {
     switch(action.type) {
       case SINGLE_MOVIE:
-      return [...action.movie]
+      return {...action.movie}
       default:
       return state
     }

@@ -13,20 +13,18 @@ export class SingleMovie extends Component {
     return (
       <div id = "single-movie">
       <div>
-        <Movie movie={movie} />
-
+       <h3>{movie.id}</h3>
+       <img src={movie.img} />
+      <span>{movie.price}</span>
       </div>
       </div>
     )
-
-
-
   }
 }
 
 const mapStateToProps = state => {
 return {
-  movies: state.singleMovie
+  movie: state.singleMovie
   }
 }
 
