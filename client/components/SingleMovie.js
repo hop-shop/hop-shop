@@ -2,27 +2,33 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {fetchMovieThunk} from '../store/singleMovie'
 
-class disconnectedSingleMovie extends Component {
+export class DisconnectedSingleMovie extends Component {
   componentDidMount() {
     const movieId = this.props.match.params.id
     this.props.fetchSingleMovie(movieId)
   }
   render() {
     const movie = this.props.movie
-    console.log(movie)
+    //console.log(movie)
+    if (movie && movie.id){
+
+
     return (
-      <div key={movie.id}>
+      <div key={movie}>
        <h3>{movie.title}</h3>
-       <img src={movie.img} />
+       <img src={movie.imageUrl} />
       <span>{movie.price}</span>
       </div>
     )
+    } else{
+      return "Loading"
+    }
   }
 }
 
 const mapStateToProps = state => {
 return {
-  movie: state.movie
+  movie: state.singleMovie
   }
 }
 
@@ -38,4 +44,4 @@ const mapDispatchToProps = dispatch => {
 
 export const SingleMovie = connect(mapStateToProps,
   mapDispatchToProps)
-  (disconnectedSingleMovie)
+  (DisconnectedSingleMovie)
