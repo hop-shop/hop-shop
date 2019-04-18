@@ -14,7 +14,6 @@ describe('Movie routes', () => {
   })
 
   describe('/api/movies/', () => {
-
     const movieTitle = 'Titanic'
     const moviePrice = 2.99
 

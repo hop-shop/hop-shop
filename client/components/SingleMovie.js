@@ -16,6 +16,7 @@ export class DisconnectedSingleMovie extends Component {
     return (
       <div key={movie}>
        <h3>{movie.title}</h3>
+       <a>Add To Cart</a>
        <img src={movie.imageUrl} />
       <span>{movie.price}</span>
       </div>
