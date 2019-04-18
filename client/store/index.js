@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import movies from './movie'
+import singleMovie from './singleMovie'
 
-const reducer = combineReducers({user, movies})
+const reducer = combineReducers({user, movies, singleMovie})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
