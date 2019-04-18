@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 
-//actionCreator
+// actionCreator
 
 const addedToCart = movie => {
   return {
