@@ -19,6 +19,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
+    console.log('backend THE BODY!!!!!!!', req.body)
     const newCartItem = await Cart.create({
       userId: req.params.userId,
       movieId: req.body.movieId

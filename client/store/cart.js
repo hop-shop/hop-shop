@@ -16,8 +16,11 @@ const addedToCart = movie => {
 export const addToCartThunk = (userId, movieId) => async dispatch => {
   console.log('in the thunk')
   try {
-    const {data} = await axios.post(`/api/users/${userId}/cart`, movieId)
+    console.log('movieId', movieId)
+    const {data} = await axios.post(`/api/users/${userId}/cart`, {movieId})
+    console.log('this is after axios')
     dispatch(addedToCart(data))
+    console.log('after dispatch')
   } catch (err) {
     console.error(err)
   }
