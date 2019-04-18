@@ -19,16 +19,3 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
-
-router.post('/:id', async (req, res, next) => {
-  try {
-    const newCartItem = await Cart.create({
-      userId: req.body.userId,
-      movieId: req.body.id
-    })
-    console.log('REQ.BODY---', req.body)
-    res.json(newCartItem)
-  } catch (err) {
-    next(err)
-  }
-})

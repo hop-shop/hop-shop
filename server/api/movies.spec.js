@@ -12,14 +12,13 @@ describe('Movie routes', () => {
   })
 
   describe('/api/movies/', () => {
-
     const movieTitle = 'Titanic'
     const moviePrice = 2.99
 
     beforeEach(() => {
       return Movie.create({
-        title:movieTitle,
-        price:moviePrice
+        title: movieTitle,
+        price: moviePrice
       })
     })
 

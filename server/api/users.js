@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Cart} = require('../db/models')
 module.exports = router
+//all routes are mounted to /api/users
 
 router.get('/', async (req, res, next) => {
   try {
@@ -11,6 +12,18 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email']
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    const newCartItem = await Cart.create({
+      userId: req.params.userId,
+      movieId: req.body.movieId
+    })
+    res.json(newCartItem)
   } catch (err) {
     next(err)
   }
