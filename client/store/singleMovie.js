@@ -11,7 +11,7 @@ const getSingleMovie = (movie) => ({
 
 export const fetchMovieThunk = (id) => async dispatch => {
     try {
-      console.log('Thunk helloz')
+      // console.log('Thunk helloz')
       const {data} = await axios.get(`/api/movies/${id}`)
       dispatch(getSingleMovie(data))
     } catch (err) {
