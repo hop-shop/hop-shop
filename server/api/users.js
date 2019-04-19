@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
+const sequelize = require('sequelize')
 module.exports = router
 //all routes are mounted to /api/users
 
@@ -32,13 +33,6 @@ router.post('/:userId/cart', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({
-      where: {
-        userId: req.params.userId,
-        purchased: false
-      },
-      include: [{model: Movie}]
-    })
     res.json(cart)
   } catch (err) {
     next(err)
