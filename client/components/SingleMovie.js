@@ -10,6 +10,7 @@ export class DisconnectedSingleMovie extends Component {
     this.props.fetchMovieThunk(movieId)
   }
   render() {
+    console.log(this.props.cart)
     const movie = this.props.movie
     const {user} = this.props
     console.log(user)
@@ -36,7 +37,8 @@ export class DisconnectedSingleMovie extends Component {
 const mapStateToProps = state => {
   return {
     movie: state.singleMovie,
-    user: state.user
+    user: state.user,
+    cart: state.cart
   }
 }
 
