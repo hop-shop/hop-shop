@@ -33,6 +33,11 @@ router.post('/:userId/cart', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
+    const cart = await Cart.findAll({
+      include:[{
+        model:Movie,
+      }],
+    })
     res.json(cart)
   } catch (err) {
     next(err)

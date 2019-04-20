@@ -11,6 +11,9 @@ const Cart = require('./cart')
 Movie.belongsToMany(User, {through: Cart})
 User.belongsToMany(Movie, {through: Cart})
 
+Cart.belongsTo(Movie)
+Cart.belongsTo(User)
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
