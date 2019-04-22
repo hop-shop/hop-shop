@@ -3,7 +3,15 @@ const {User, Cart} = require('../db/models')
 module.exports = router
 //all routes are mounted to /api/users
 
-router.get('/', async (req, res, next) => {
+function adminUserCheck(req,res,next){
+  if(req.user.isAdmin){
+    next()
+  }else{
+    return res.sendStatus(401)
+  }
+}
+
+router.get('/',adminUserCheck, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
