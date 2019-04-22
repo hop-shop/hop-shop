@@ -4,7 +4,7 @@ import axios from 'axios'
 const SINGLE_MOVIE = 'SINGLE_MOVIE'
 
 //action creator
-const getSingleMovie = (movie) => ({
+export const getSingleMovie = (movie) => ({
   type: SINGLE_MOVIE,
   movie
 })

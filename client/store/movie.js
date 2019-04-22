@@ -14,6 +14,7 @@ const getAllMovies = movies => ({
 export const allMoviesThunk = () => async dispatch => {
   try {
     //console.log('Thunk hello')
+    console.log(dispatch, "ALLLLLLL")
     const {data} = await axios.get('/api/movies')
     dispatch(getAllMovies(data))
   } catch (err) {

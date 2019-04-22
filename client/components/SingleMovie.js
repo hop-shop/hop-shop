@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchMovieThunk} from '../store/singleMovie'
-import {addToCartThunk} from '../store/cart'
+import {addToCartThunk}from '../store/cart'
+
+
 
 export class DisconnectedSingleMovie extends Component {
   componentDidMount() {
@@ -37,7 +39,11 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {fetchMovieThunk, addToCartThunk}
+const mapDispatchToProps = dispatch => ({
+  fetchMovieThunk: (id) => dispatch(getSingleMovie(id)),
+  // addToCartThunk: (userId, movieId) => dispatch(addcart(userId, movieId))
+})
+
 
 export const SingleMovie = connect(mapStateToProps, mapDispatchToProps)(
   DisconnectedSingleMovie
