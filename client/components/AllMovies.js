@@ -8,19 +8,25 @@ export class DisconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
-   // console.log('in the component')
+    // console.log('in the component')
 
-    return this.props.movies.map(movie => {
-      return (
-        <div key={movie.id}>
-        <Link to={`movies/${movie.id}`}>
-          <h3>{movie.title}</h3>
-          <img src={movie.imageUrl} />
-          <span>{movie.price}</span>
-        </Link>
-        </div>
-      )
-    })
+    return (
+      <div className="container">
+        {this.props.movies.map(movie => {
+          return (
+            <div className="card" key={movie.id}>
+              <img className="card-img-top" src={movie.imageUrl} />
+              <div className="card-body">
+                <Link to={`movies/${movie.id}`}>
+                  <h3 className="card-title">{movie.title}</h3>
+                  <span className="card-text">{movie.price}</span>
+                </Link>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 }
 

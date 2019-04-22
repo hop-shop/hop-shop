@@ -19,3 +19,12 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.container {
+  display: flex;
+}
+
+img {
+  width: 20%;
+  height: auto;
+}
