@@ -20,12 +20,11 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    console.log('backend THE BODY!!!!!!!', req.body)
     const newCartItem = await Cart.create({
       userId: req.params.userId,
       movieId: req.body.movieId
     })
-    res.json()
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }
@@ -34,12 +33,15 @@ router.post('/:userId/cart', async (req, res, next) => {
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
-      where:{
-        userId:req.params.userId
+      where: {
+        userId: req.params.userId,
+        // purchased: false
       },
-      include:[{
-        model:Movie,
-      }]
+      include: [
+        {
+          model: Movie
+        }
+      ]
     })
     res.json(cart)
   } catch (err) {

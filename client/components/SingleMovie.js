@@ -6,17 +6,12 @@ import {addToCartThunk} from '../store/cart'
 export class DisconnectedSingleMovie extends Component {
   componentDidMount() {
     const movieId = this.props.match.params.id
-    console.log('first movieid', movieId)
     this.props.fetchMovieThunk(movieId)
   }
   render() {
-    console.log(this.props.cart)
-    const movie = this.props.movie
+    const {movie} = this.props
     const {user} = this.props
-    console.log(user)
-    //console.log(movie)
     if (movie && movie.id) {
-      console.log('SECOND', movie.id)
       return (
         <div key={movie.id}>
           <h3>{movie.title}</h3>
@@ -44,7 +39,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {fetchMovieThunk, addToCartThunk}
 
-export const SingleMovie = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisconnectedSingleMovie)
+export const SingleMovie = connect(mapStateToProps, mapDispatchToProps)(
+  DisconnectedSingleMovie
+)
