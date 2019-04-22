@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from './index'
+// import store from './index'
 //action type
 
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -19,13 +19,14 @@ const gotCart = cart => ({
 })
 
 //Thunk
-export const addToCartThunk = (userId, movieId) => async dispatch => {
+export const addToCartThunk = (userId, movieId) => async (dispatch) => {
 
   try {
-    console.log(store.dispatch, "DISPATCH")
-    const {data} = await axios.post(`/api/users/${userId}/cart`, {movieId})
+
+    console.log('inside addToCartThunk', dispatch)
+    const {data} = await axios.post(`/api/users/${userId}/cart`, movieId)
     console.log('movie object', data)
-    store.dispatch(addcart(data))
+    dispatch(addcart(data))
   } catch (err) {
     console.error(err)
   }

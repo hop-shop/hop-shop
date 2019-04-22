@@ -39,11 +39,15 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchMovieThunk: (id) => dispatch(getSingleMovie(id)),
-  // addToCartThunk: (userId, movieId) => dispatch(addcart(userId, movieId))
-})
 
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchMovieThunk: function(id) { return dispatch(fetchMovieThunk(id)) },
+    addToCartThunk: function(userId, movieId) { return dispatch(addToCartThunk(userId, movieId)) }
+ }
+}
 
 export const SingleMovie = connect(mapStateToProps, mapDispatchToProps)(
   DisconnectedSingleMovie
