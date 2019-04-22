@@ -8,10 +8,11 @@ const Cart = require('./cart')
  *    BlogPost.belongsTo(User)
  */
 
-Movie.belongsToMany(User, {through: Cart })
-User.belongsToMany(Movie, {through: Cart })
+Movie.belongsToMany(User, {through: Cart})
+User.belongsToMany(Movie, {through: Cart})
 
-
+Cart.belongsTo(Movie)
+Cart.belongsTo(User)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -22,5 +23,5 @@ User.belongsToMany(Movie, {through: Cart })
 module.exports = {
   User,
   Movie,
-  Cart,
+  Cart
 }
