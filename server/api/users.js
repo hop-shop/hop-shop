@@ -38,7 +38,7 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart', async (req, res, next) => {
+router.get('/:userId/cart',adminUserCheck, async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
       where: {
