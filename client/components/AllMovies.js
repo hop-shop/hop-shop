@@ -28,7 +28,7 @@ export class DisconnectedAllMovies extends Component {
                   <div className="card-body text-dark">
                     <Link
                       style={{textDecoration: 'none'}}
-                      o={`movies/${movie.id}`}
+                      to={`movies/${movie.id}`}
                     >
                       <h3 className="card-title text-dark">{movie.title}</h3>
                       <span className="card-text text-dark">
