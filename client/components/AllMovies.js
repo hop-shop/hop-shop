@@ -3,24 +3,43 @@ import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 import {Link} from 'react-router-dom'
 
+let styles1 = {
+  'max-width': '500px'
+}
+
 export class DisconnectedAllMovies extends Component {
   componentDidMount() {
     this.props.fetchMovies()
   }
   render() {
-    // console.log('in the component')
-
     return (
       <div className="container">
         {this.props.movies.map(movie => {
           return (
-            <div className="card" key={movie.id}>
-              <img className="card-img-top" src={movie.imageUrl} />
-              <div className="card-body">
-                <Link to={`movies/${movie.id}`}>
-                  <h3 className="card-title">{movie.title}</h3>
-                  <span className="card-text">{movie.price}</span>
-                </Link>
+            <div
+              style={styles1}
+              className="card mb-3 allmovie text-dark "
+              key={movie.id}
+            >
+              <div className="row no-gutters">
+                <div className="col-md-4">
+                  <img className="card-img" src={movie.imageUrl} />
+                </div>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <Link className="link" to={`movies/${movie.id}`}>
+                      <h3 className="card-title link">{movie.title}</h3>
+                      <span className="card-text link">
+                        Price: ${movie.price}
+                      </span>
+                    </Link>
+                  </div>
+                  <div className="card-body">
+                    <a href="#" className="btn btn-outline-primary">
+                      Add to Cart
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           )
