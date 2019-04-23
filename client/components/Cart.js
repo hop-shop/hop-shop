@@ -11,13 +11,20 @@ export class DisconnectedCart extends Component {
     const cart = this.props.cart
     return (<div>
       {cart && cart.length ?
-    cart.map(cart=>{
+      <div>
+    {cart.map(cart=>{
         return (
         <div key={cart.userId}>
           <h3>{cart.movie.title}</h3>
           <img src={cart.movie.imageUrl} />
           <span>{cart.movie.price}</span>
-        </div> )})
+
+        </div>
+        )})}
+        <div>
+          <span>Total Price: {cart.reduce((a,b)=>{return +(a+b.movie.price)},0)}</span>
+          </div>
+          </div>
         :'Loading'}
         </div>)
   }

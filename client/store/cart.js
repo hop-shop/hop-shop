@@ -34,6 +34,8 @@ let initialstate = {
   cartMovies:[],
 }
 
+//Reducer
+
 export default function(state = initialstate, action) {
   switch (action.type) {
     case CART_MOVIES:
