@@ -1,10 +1,17 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
-const sequelize = require('sequelize')
 module.exports = router
 //all routes are mounted to /api/users
 
-router.get('/', async (req, res, next) => {
+function adminUserCheck(req, res, next) {
+  if (req.user.isAdmin) {
+    next()
+  } else {
+    return res.sendStatus(401)
+  }
+}
+
+router.get('/', adminUserCheck, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -30,12 +37,12 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart', async (req, res, next) => {
+router.get('/:userId/cart', adminUserCheck, async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
       where: {
         userId: req.params.userId,
-        // purchased: false
+        purchased: false
       },
       include: [
         {
@@ -46,5 +53,19 @@ router.get('/:userId/cart', async (req, res, next) => {
     res.json(cart)
   } catch (err) {
     next(err)
+  }
+})
+
+router.delete('/:userId/cart/:movieId', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        userId: req.params.userId,
+        movieId: req.params.movieId
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
   }
 })
