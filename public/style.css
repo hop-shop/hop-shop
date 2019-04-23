@@ -33,3 +33,13 @@ form div {
 .block {
   display: block;
 }
+
+.singleMovie {
+  display: flex;
+  justify-content: space-around;
+}
+
+.image {
+  height: 250px;
+  width: auto;
+}

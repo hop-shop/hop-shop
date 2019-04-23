@@ -13,14 +13,30 @@ export class DisconnectedSingleMovie extends Component {
     const {user} = this.props
     if (movie && movie.id) {
       return (
-        <div key={movie.id}>
-          <h3>{movie.title}</h3>
-          <button type="button" onClick={addToCartThunk(user.id, movie.id)}>
-            Add to Cart
-          </button>
-          <br />
-          <img src={movie.imageUrl} />
-          <span>{movie.price}</span>
+        <div className="singleMovie">
+          <div>
+            <img className="image" src={movie.imageUrl} />
+          </div>
+          <div className="card singleMovieCard" key={movie.id}>
+            <div className="card-header">
+              <h3>{movie.title}</h3>
+            </div>
+
+            <div className="card-body ">
+              <h5 className="card-title">Price: ${movie.price}</h5>
+              <p className="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
+              </p>
+              <a
+                href="#"
+                onClick={addToCartThunk(user.id, movie.id)}
+                className="btn btn-primary"
+              >
+                Add to Cart
+              </a>
+            </div>
+          </div>
         </div>
       )
     } else {
@@ -39,6 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {fetchMovieThunk, addToCartThunk}
 
-export const SingleMovie = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedSingleMovie
-)
+export const SingleMovie = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisconnectedSingleMovie)
