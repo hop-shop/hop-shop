@@ -5,6 +5,7 @@ module.exports = router
 //all routes are mounted to /api/users
 
 function adminUserCheck(req,res,next){
+  console.log(req.user)
   if(req.user.isAdmin){
     next()
   }else{

@@ -13,7 +13,7 @@ export class DisconnectedSingleMovie extends Component {
     const {user} = this.props
     if (movie && movie.id) {
       return (
-        <div key={movie.id}>
+        <div>
           <h3>{movie.title}</h3>
           <button type="button" onClick={addToCartThunk(user.id, movie.id)}>
             Add to Cart
