@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 import {Link} from 'react-router-dom'
 let styles1 = {
-  'max-width': '500px'
+  maxWidth: '500px'
 }
 
 export class DisconnectedAllMovies extends Component {
@@ -48,7 +48,6 @@ export class DisconnectedAllMovies extends Component {
         })}
       </div>
     )
-
   }
 }
 const mapStateToProps = state => {
@@ -65,7 +64,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const AllMovies = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisconnectedAllMovies)
+export const AllMovies = connect(mapStateToProps, mapDispatchToProps)(
+  DisconnectedAllMovies
+)

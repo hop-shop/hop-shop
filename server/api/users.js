@@ -3,16 +3,15 @@ const {User, Cart, Movie} = require('../db/models')
 module.exports = router
 //all routes are mounted to /api/users
 
-function adminUserCheck(req,res,next){
-  console.log(req.user)
-  if(req.user.isAdmin){
+function adminUserCheck(req, res, next) {
+  if (req.user.isAdmin) {
     next()
-  }else{
+  } else {
     return res.sendStatus(401)
   }
 }
 
-router.get('/',adminUserCheck, async (req, res, next) => {
+router.get('/', adminUserCheck, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -38,7 +37,7 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart',adminUserCheck, async (req, res, next) => {
+router.get('/:userId/cart', adminUserCheck, async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
       where: {

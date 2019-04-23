@@ -8,7 +8,7 @@ const users = [
     email: 'kylo@ren.com',
     imageUrl: 'kylo.png',
     password: 'password',
-    isAdmin:true
+    isAdmin: true
   },
   {
     name: 'Rey',
@@ -27,7 +27,7 @@ const users = [
     email: 'poe@resistance.com',
     imageUrl: 'poe.png',
     password: 'password',
-    isAdmin:true
+    isAdmin: true
   }
 ]
 
