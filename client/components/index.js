@@ -10,4 +10,4 @@ export {AllMovies} from './AllMovies'
 export {SingleMovie} from './SingleMovie'
 export {Cart} from './Cart'
 export {Carousel} from './carousel'
-
+export {GuestCart} from './GuestCart'
