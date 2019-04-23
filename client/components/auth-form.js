@@ -10,26 +10,37 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={handleSubmit} name={name}>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input className="form-control" name="email" type="text" />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input className="form-control" name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" className="btn btn-primary">
+            {displayName}
+          </button>
         </div>
+        <div className="block">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            href="/auth/google"
+          >
+            {displayName} with Google
+          </button>
+        </div>
+
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
     </div>
   )
 }
@@ -69,8 +80,14 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = connect(
+  mapLogin,
+  mapDispatch
+)(AuthForm)
+export const Signup = connect(
+  mapSignup,
+  mapDispatch
+)(AuthForm)
 
 /**
  * PROP TYPES
