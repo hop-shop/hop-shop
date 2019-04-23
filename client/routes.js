@@ -10,7 +10,8 @@ import {
   AllMovies,
   SingleMovie,
   Carousel,
-  Cart
+  Cart,
+  GuestCart
 } from './components'
 import {me} from './store'
 
@@ -42,6 +43,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/movies" component={AllMovies} />
         <Route exact path="/movies/:id" component={SingleMovie} />
+        <Route exact path="/guest/cart" component={GuestCart} />
 
         {isLoggedIn && (
           <Switch>

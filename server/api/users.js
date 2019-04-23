@@ -1,7 +1,10 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
+<<<<<<< HEAD
 const sequelize = require('sequelize')
 
+=======
+>>>>>>> master
 module.exports = router
 //all routes are mounted to /api/users
 
@@ -38,7 +41,7 @@ router.get('/:userId/cart', async (req, res, next) => {
     const cart = await Cart.findAll({
       where: {
         userId: req.params.userId,
-        // purchased: false
+        purchased: false
       },
       include: [
         {
@@ -52,6 +55,7 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
+<<<<<<< HEAD
 router.post("/charge", async (req, res) => {
   //console.log(`charge = ${(await JSON.stringify(req.body))}`)
 
@@ -69,3 +73,18 @@ router.post("/charge", async (req, res) => {
     res.status(500).end();
   }
 });
+=======
+router.delete('/:userId/cart/:movieId', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        userId: req.params.userId,
+        movieId: req.params.movieId
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+>>>>>>> master
