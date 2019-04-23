@@ -34,12 +34,12 @@ describe('SingleMovie', () => {
   let singleMovie
 
   beforeEach(() => {
-    singleMovie = shallow(<DisconnectedSingleMovie fetchMovieThunk={fetchMovies} movie = {movie} user={user} match={match}/>)
+    singleMovie = shallow(<DisconnectedSingleMovie fetchSingleMovie={fetchMovies} movie = {movie} user={user} match={match}/>)
   })
 
   it('renders the title in an h3', () => {
-    expect(singleMovie.find('h3').text()).to.equal('Titanic')
-    expect(singleMovie.find('img').prop("src")).to.equal('www.image.com')
-    expect(singleMovie.find('span').text()).to.equal('2.99')
+    expect(singleMovie.find('h3').first().text()).to.equal('Titanic')
+    expect(singleMovie.find('img').first().prop("src")).to.equal('www.image.com')
+    expect(singleMovie.find('h5').first().text()).to.equal('Price: $2.99')
   })
 })
