@@ -1,8 +1,11 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
 const sequelize = require('sequelize')
+
 module.exports = router
 //all routes are mounted to /api/users
+
+router.use(require("body-parser").text());
 
 router.get('/', async (req, res, next) => {
   try {
@@ -48,3 +51,21 @@ router.get('/:userId/cart', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post("/charge", async (req, res) => {
+  //console.log(`charge = ${(await JSON.stringify(req.body))}`)
+
+  try {
+    const charge = JSON.parse(await (req.body))
+    let {status} = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example charge",
+      source: charge.id
+    });
+
+    res.json({status});
+  } catch (err) {
+    res.status(500).end();
+  }
+});
