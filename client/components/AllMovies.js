@@ -48,6 +48,7 @@ export class DisconnectedAllMovies extends Component {
         })}
       </div>
     )
+
   }
 }
 const mapStateToProps = state => {
