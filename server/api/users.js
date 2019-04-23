@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
-const sequelize = require('sequelize')
 module.exports = router
 //all routes are mounted to /api/users
 
