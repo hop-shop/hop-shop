@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const {Movie, Cart} = require('../db/models')
+const {Movie} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const movies = await Movie.findAll({})
+    const movies = await Movie.findAll()
     res.json(movies)
   } catch (err) {
     next(err)

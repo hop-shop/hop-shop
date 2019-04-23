@@ -24,7 +24,7 @@ router.post('/:userId/cart', async (req, res, next) => {
       userId: req.params.userId,
       movieId: req.body.movieId
     })
-    res.sendStatus(201)
+    res.status(201).json(newCartItem)
   } catch (err) {
     next(err)
   }

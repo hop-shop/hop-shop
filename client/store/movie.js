@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-//Thunk
+
 
 //action type
 const ALLMOVIES = 'ALLMOVIES'
@@ -11,9 +11,9 @@ const getAllMovies = movies => ({
   movies
 })
 
+//Thunk
 export const allMoviesThunk = () => async dispatch => {
   try {
-    //console.log('Thunk hello')
     const {data} = await axios.get('/api/movies')
     dispatch(getAllMovies(data))
   } catch (err) {
@@ -26,7 +26,7 @@ export const allMoviesThunk = () => async dispatch => {
 export default function(state = [], action) {
   switch (action.type) {
     case ALLMOVIES:
-      return [...action.movies]
+      return action.movies
     default:
       return state
   }
