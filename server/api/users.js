@@ -35,7 +35,7 @@ router.get('/:userId/cart', async (req, res, next) => {
     const cart = await Cart.findAll({
       where: {
         userId: req.params.userId,
-        // purchased: false
+        purchased: false
       },
       include: [
         {
@@ -46,5 +46,19 @@ router.get('/:userId/cart', async (req, res, next) => {
     res.json(cart)
   } catch (err) {
     next(err)
+  }
+})
+
+router.delete('/:userId/cart/:movieId', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        userId: req.params.userId,
+        movieId: req.params.movieId
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
   }
 })
