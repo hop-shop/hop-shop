@@ -30,16 +30,14 @@ export const getCartThunk = (userId) => async dispatch =>{
   }
 }
 
-let initialstate = {
-  cartMovies:[],
-}
+let initialstate = []
 
 //Reducer
 
 export default function(state = initialstate, action) {
   switch (action.type) {
     case CART_MOVIES:
-    return {...state,cartMovies:action.cart}
+    return action.cart
     default:
       return state
   }

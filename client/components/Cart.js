@@ -32,7 +32,7 @@ export class DisconnectedCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart:state.cart.cartMovies
+    cart:state.cart
   }
 }
 
