@@ -1,38 +1,58 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk} from '../store/cart'
-
+import {getCartThunk, deleteMovieFromCart} from '../store/cart'
 
 export class DisconnectedCart extends Component {
-  componentDidMount(){
+  componentDidMount() {
     this.props.fetchCart(this.props.match.params.id)
   }
-  render(){
+  render() {
     const cart = this.props.cart
-    return (<div>
-      {cart && cart.length ?
+    const {deleteMovieFromCart} = this.props
+    return (
       <div>
-    {cart.map(cart=>{
-        return (
-        <div key={cart.userId}>
-          <h3>{cart.movie.title}</h3>
-          <img src={cart.movie.imageUrl} />
-          <span>{cart.movie.price}</span>
-
-        </div>
-        )})}
-        <div>
-          <span>Total Price: {cart.reduce((a,b)=>{return +(a+b.movie.price)},0)}</span>
+        {cart && cart.length ? (
+          <div>
+            {cart.map(cartItem => {
+              return (
+                <div key={cartItem.movieId}>
+                  <h3>{cartItem.movie.title}</h3>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      deleteMovieFromCart(cartItem.userId, cartItem.movieId)
+                    }
+                  >
+                    Remove From Cart
+                  </button>
+                  <img
+                    src={cartItem.movie.imageUrl}
+                    className="img-thumbnail"
+                  />
+                  <span>{cartItem.movie.price}</span>
+                </div>
+              )
+            })}
+            <div>
+              <span>
+                Total Price:{' '}
+                {cart.reduce((a, b) => {
+                  return +(a + b.movie.price)
+                }, 0)}
+              </span>
+            </div>
           </div>
-          </div>
-        :'Loading'}
-        </div>)
+        ) : (
+          'No Items Currently in the Cart'
+        )}
+      </div>
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    cart:state.cart
+    cart: state.cart
   }
 }
 
@@ -40,11 +60,13 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCart: function(userId) {
       return dispatch(getCartThunk(userId))
+    },
+    deleteMovieFromCart: function(userId, movieId) {
+      return dispatch(deleteMovieFromCart(userId, movieId))
     }
   }
 }
 
-export const Cart = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisconnectedCart)
+export const Cart = connect(mapStateToProps, mapDispatchToProps)(
+  DisconnectedCart
+)
