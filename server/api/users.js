@@ -86,7 +86,7 @@ router.post("/charge", async (req, res) => {
     let customer = await stripe.customers.create(
       {email:req.user.email,
         source: charge.id})
-    amount = (amount *100)
+    amount = parseInt(amount *100)
     let {status} = await stripe.charges.create({
       amount: amount,
       currency: "usd",
