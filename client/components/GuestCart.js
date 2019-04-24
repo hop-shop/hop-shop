@@ -58,11 +58,7 @@ export class DisconnectedGuestCart extends Component {
                 </div>
               </li>
               <div className="card text-center">
-                <div className="card-header">
-                  <a href="#" className="btn btn-primary">
-                    Checkout Now
-                  </a>
-                </div>
+                <div className="card-header" />
               </div>
             </ul>
             <div>
