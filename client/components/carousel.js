@@ -16,9 +16,9 @@ class carousel extends Component {
           out within the larger container.
         </p>
         <Link to="/movies">
-          <a className="btn btn-primary btn-lg" href="#" role="button">
+          <button className="btn btn-primary btn-lg" href="#" role="button">
             Browse Movies
-          </a>
+          </button>
         </Link>
       </div>
     )
