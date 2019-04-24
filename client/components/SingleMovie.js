@@ -63,7 +63,6 @@ const mapStateToProps = state => {
   }
 }
 
-//const mapDispatchToProps = {fetchMovieThunk, addToCartThunk}
 const mapDispatchToProps = dispatch => ({
   fetchSingleMovie: id => dispatch(fetchMovieThunk(id)),
   addToCart: (userId, movieId, movie) =>
