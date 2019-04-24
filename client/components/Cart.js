@@ -9,9 +9,7 @@ export class DisconnectedCart extends Component {
   }
   render() {
     const cart = this.props.cart
-    const totalPrice = cart.reduce((a, b) => {
-      return +(a + b.movie.price)
-    }, 0)
+
     const {deleteMovieFromCart} = this.props
     return (
       <div className="container">
