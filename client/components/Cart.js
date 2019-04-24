@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import StripeApp from './StripeApp.js'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
 import CartCheckout from './CartCheckout'
 export class DisconnectedCart extends Component {
@@ -8,6 +9,9 @@ export class DisconnectedCart extends Component {
   }
   render() {
     const cart = this.props.cart
+    const totalPrice = cart.reduce((a, b) => {
+      return +(a + b.movie.price)
+    }, 0)
     const {deleteMovieFromCart} = this.props
     return (
       <div className="container">
@@ -68,6 +72,13 @@ export class DisconnectedCart extends Component {
                 </div>
               </div>
             </ul>
+            ) })}
+            <div>
+              <span>Total Price:{totalPrice}</span>
+            </div>
+            <div>
+              <StripeApp />
+            </div>
           </div>
         ) : (
           'No Items Currently in the Cart'

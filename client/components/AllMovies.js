@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 import {addToCartThunk} from '../store/cart'
 import {Link} from 'react-router-dom'
+import {addToCartThunk} from '../store/cart'
+import {addToGuestCart} from '../store/guestCart'
 let styles1 = {
   maxWidth: '400px'
 }
@@ -12,6 +14,7 @@ export class DisconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
+    const {user,addToCart, addToGuestCart} = this.props
     return (
       <div className="container">
         {this.props.movies.map(movie => {
@@ -38,6 +41,7 @@ export class DisconnectedAllMovies extends Component {
                     </Link>
                   </div>
                   <div className="card-body">
+<<<<<<< HEAD
                     {this.props.user.id ? (
                       <a
                         href="#"
@@ -57,6 +61,21 @@ export class DisconnectedAllMovies extends Component {
                         Add to Cart
                       </a>
                     )}
+=======
+                  {user.id ? (
+                    <a href="#" onClick={() => addToCart(user.id, movie.id)} className="btn btn-outline-primary">
+                      Add to Cart
+                    </a>
+                  ):(
+                    <a
+                      href="#"
+                      onClick={() => addToGuestCart(movie)}
+                      className="btn btn-outline-primary"
+                    >
+                      Add To Cart
+                    </a>
+                  )}
+>>>>>>> master
                   </div>
                 </div>
               </div>
@@ -70,7 +89,12 @@ export class DisconnectedAllMovies extends Component {
 const mapStateToProps = state => {
   return {
     movies: state.movies,
+<<<<<<< HEAD
     user: state.user
+=======
+    user:state.user,
+    GuestCart: state.GuestCart
+>>>>>>> master
   }
 }
 
@@ -79,8 +103,13 @@ const mapDispatchToProps = dispatch => {
     fetchMovies: function() {
       return dispatch(allMoviesThunk())
     },
+<<<<<<< HEAD
     addToCart: (userId, movieId, movie) =>
       dispatch(addToCartThunk(userId, movieId, movie))
+=======
+    addToCart: (userId, movieId) => dispatch(addToCartThunk(userId, movieId)),
+    addToGuestCart: movie => dispatch(addToGuestCart(movie))
+>>>>>>> master
   }
 }
 

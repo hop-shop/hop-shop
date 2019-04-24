@@ -16,7 +16,7 @@ const Movie = db.define('movie', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DOUBLE,
     allowNull: false,
     validate: {
       notEmpty: true

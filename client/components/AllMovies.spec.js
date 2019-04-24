@@ -15,6 +15,9 @@ let movies = [
     price: 2.99
   }
 ]
+let user = {
+  id:1
+}
 
 enzyme.configure({adapter})
 let fetchMovies = () => {
@@ -26,7 +29,7 @@ describe('AllMovies', () => {
 
   beforeEach(() => {
     allMovies = shallow(
-      <DisconnectedAllMovies fetchMovies={fetchMovies} movies={movies} />
+      <DisconnectedAllMovies fetchMovies={fetchMovies} movies={movies} user = {user}/>
     )
   })
 
