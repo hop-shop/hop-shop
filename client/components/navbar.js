@@ -7,7 +7,12 @@ import {getCartThunk} from '../store/cart'
 
 export class DisconnectedNavbar extends Component {
   componentDidMount() {
-    this.props.fetchCart(this.props.user.id)
+    if (this.props.user.id) {
+      this.props.fetchCart(this.props.user.id)
+    } else {
+      console.log('fetching')
+      this.props.fetchCart()
+    }
   }
   render() {
     const {handleClick, isLoggedIn, user, cart} = this.props
@@ -31,7 +36,7 @@ export class DisconnectedNavbar extends Component {
                   Movies
                 </Link>
                 <Link className="navs" to={`/users/${user.id}/cart`}>
-                  Cart ({cart.length})
+                  Cart
                 </Link>
               </div>
             ) : (
@@ -47,7 +52,7 @@ export class DisconnectedNavbar extends Component {
                   Movies
                 </Link>
                 <Link className="navs" to="/guest/cart">
-                  Cart ({cart.length})
+                  Cart ()
                 </Link>
               </div>
             )}
