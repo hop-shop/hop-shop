@@ -15,12 +15,12 @@ export class DisconnectedCart extends Component {
           <div>
             {cart.map(cartItem => {
               return (
-                <div key={cartItem.movieId}>
-                  <h3>{cartItem.movie.title}</h3>
+                <div key={cartItem.movie.id}>
+                  <h3>{cartItem.title}</h3>
                   <button
                     type="button"
                     onClick={() =>
-                      deleteMovieFromCart(cartItem.userId, cartItem.movieId)
+                      deleteMovieFromCart(cartItem.movie.id, cartItem.movie.id)
                     }
                   >
                     Remove From Cart
@@ -67,6 +67,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const Cart = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedCart
-)
+export const Cart = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisconnectedCart)

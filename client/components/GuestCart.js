@@ -1,22 +1,32 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchGuestCart} from '../store/guestCart'
+import {getCartThunk, deleteMovieFromCart} from '../store/cart'
+
 export class DisconnectedGuestCart extends Component {
   componentDidMount() {
-    this.props.fetchGuestCart()
+    this.props.fetchCart()
   }
   render() {
     const cart = this.props.cart
+    console.log('the cart!', cart)
+    const {deleteMovieFromCart} = this.props
     return (
       <div>
-        {cart.length > 0 ? (
+        {cart && cart.length ? (
           <div>
-            {cart.map(movie => {
+            {cart.map((cartItem, index) => {
+              console.log(cartItem)
               return (
-                <div>
-                  <h3>{movie.title}</h3>
-                  <img src={movie.imageUrl} />
-                  <span>{movie.price}</span>
+                <div key={cartItem.id}>
+                  <h3>{cartItem.title}</h3>
+                  <button
+                    type="button"
+                    onClick={() => deleteMovieFromCart(null, index)}
+                  >
+                    Remove From Cart
+                  </button>
+                  <img src={cartItem.imageUrl} className="img-thumbnail" />
+                  <span>{cartItem.price}</span>
                 </div>
               )
             })}
@@ -30,7 +40,7 @@ export class DisconnectedGuestCart extends Component {
             </div>
           </div>
         ) : (
-          'Loading'
+          'No Items Currently in the Cart'
         )}
       </div>
     )
@@ -39,14 +49,17 @@ export class DisconnectedGuestCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.GuestCart
+    cart: state.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchGuestCart: function() {
-      return dispatch(fetchGuestCart())
+    fetchCart: function(userId) {
+      return dispatch(getCartThunk(userId))
+    },
+    deleteMovieFromCart: function(userId, movieId) {
+      return dispatch(deleteMovieFromCart(userId, movieId))
     }
   }
 }

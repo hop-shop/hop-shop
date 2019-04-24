@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
+import {addToCartThunk} from '../store/cart'
 import {Link} from 'react-router-dom'
 let styles1 = {
   maxWidth: '500px'
@@ -37,9 +38,25 @@ export class DisconnectedAllMovies extends Component {
                     </Link>
                   </div>
                   <div className="card-body">
-                    <a href="#" className="btn btn-outline-primary">
-                      Add to Cart
-                    </a>
+                    {this.props.user.id ? (
+                      <a
+                        href="#"
+                        onClick={() =>
+                          this.props.addToCart(this.props.user, movie.id, movie)
+                        }
+                        className="btn btn-primary"
+                      >
+                        Add to Cart
+                      </a>
+                    ) : (
+                      <a
+                        href="#"
+                        onClick={() => this.props.addToCart(null, null, movie)}
+                        className="btn btn-primary"
+                      >
+                        Add to Cart
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -52,7 +69,8 @@ export class DisconnectedAllMovies extends Component {
 }
 const mapStateToProps = state => {
   return {
-    movies: state.movies
+    movies: state.movies,
+    user: state.user
   }
 }
 
@@ -60,10 +78,13 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchMovies: function() {
       return dispatch(allMoviesThunk())
-    }
+    },
+    addToCart: (userId, movieId, movie) =>
+      dispatch(addToCartThunk(userId, movieId, movie))
   }
 }
 
-export const AllMovies = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedAllMovies
-)
+export const AllMovies = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisconnectedAllMovies)
