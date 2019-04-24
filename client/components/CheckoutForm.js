@@ -3,7 +3,7 @@ import {CardElement, injectStripe} from 'react-stripe-elements';
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {getCartThunk} from '../store/cart'
-//import { sendPayment } from '../store/form';
+
 
 class CheckoutForm extends Component {
   constructor(props) {
