@@ -17,9 +17,7 @@ export const added = movie => ({
 
 //Thunk
 export const addToGuestCart = (movie) => async dispatch => {
-  console.log('in the thunk', movie)
   try {
-    // await localStorage.setItem(movie.title, movie.id)
     let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
       itemsArray.push(movie)
       localStorage.setItem('items', JSON.stringify(itemsArray))

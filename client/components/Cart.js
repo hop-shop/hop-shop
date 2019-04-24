@@ -44,7 +44,7 @@ export class DisconnectedCart extends Component {
               </span>
             </div>
             <div>
-              <StripeApp totalPrice = {totalPrice}/>
+              <StripeApp />
             </div>
           </div>
         ) : (

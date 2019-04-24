@@ -18,13 +18,12 @@ class StripeApp extends Component {
     }
   }
   render() {
-    const {totalPrice} = this.props
     return (
       <StripeProvider stripe={this.state.stripe}>
         <div className="example">
           <h3>Card Information</h3>
           <Elements>
-            <CheckoutForm totalPrice={totalPrice}/>
+            <CheckoutForm />
           </Elements>
         </div>
       </StripeProvider>
