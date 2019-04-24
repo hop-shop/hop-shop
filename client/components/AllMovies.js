@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 import {Link} from 'react-router-dom'
+import {addToCartThunk} from '../store/cart'
+import {addToGuestCart} from '../store/guestCart'
 let styles1 = {
   maxWidth: '500px'
 }
@@ -11,6 +13,7 @@ export class DisconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
+    const {user,addToCart, addToGuestCart} = this.props
     return (
       <div className="container">
         {this.props.movies.map(movie => {
@@ -37,9 +40,19 @@ export class DisconnectedAllMovies extends Component {
                     </Link>
                   </div>
                   <div className="card-body">
-                    <a href="#" className="btn btn-outline-primary">
+                  {user.id ? (
+                    <a href="#" onClick={() => addToCart(user.id, movie.id)} className="btn btn-outline-primary">
                       Add to Cart
                     </a>
+                  ):(
+                    <a
+                      href="#"
+                      onClick={() => addToGuestCart(movie)}
+                      className="btn btn-outline-primary"
+                    >
+                      Add To Cart
+                    </a>
+                  )}
                   </div>
                 </div>
               </div>
@@ -52,7 +65,9 @@ export class DisconnectedAllMovies extends Component {
 }
 const mapStateToProps = state => {
   return {
-    movies: state.movies
+    movies: state.movies,
+    user:state.user,
+    GuestCart: state.GuestCart
   }
 }
 
@@ -60,7 +75,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchMovies: function() {
       return dispatch(allMoviesThunk())
-    }
+    },
+    addToCart: (userId, movieId) => dispatch(addToCartThunk(userId, movieId)),
+    addToGuestCart: movie => dispatch(addToGuestCart(movie))
   }
 }
 
