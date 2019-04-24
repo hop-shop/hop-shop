@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
-import {Link} from 'react-router-dom'
 import {addToCartThunk} from '../store/cart'
-import {addToGuestCart} from '../store/guestCart'
+import {Link} from 'react-router-dom'
+
 let styles1 = {
-  maxWidth: '500px'
+  maxWidth: '400px'
 }
 
 export class DisconnectedAllMovies extends Component {
@@ -13,7 +13,7 @@ export class DisconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
-    const {user,addToCart, addToGuestCart} = this.props
+    const {user, addToCart} = this.props
     return (
       <div className="container">
         {this.props.movies.map(movie => {
@@ -40,19 +40,25 @@ export class DisconnectedAllMovies extends Component {
                     </Link>
                   </div>
                   <div className="card-body">
-                  {user.id ? (
-                    <a href="#" onClick={() => addToCart(user.id, movie.id)} className="btn btn-outline-primary">
-                      Add to Cart
-                    </a>
-                  ):(
-                    <a
-                      href="#"
-                      onClick={() => addToGuestCart(movie)}
-                      className="btn btn-outline-primary"
-                    >
-                      Add To Cart
-                    </a>
-                  )}
+                    {this.props.user.id ? (
+                      <a
+                        href="#"
+                        onClick={() =>
+                          this.props.addToCart(this.props.user, movie.id, movie)
+                        }
+                        className="btn btn-primary"
+                      >
+                        Add to Cart
+                      </a>
+                    ) : (
+                      <a
+                        href="#"
+                        onClick={() => this.props.addToCart(null, null, movie)}
+                        className="btn btn-primary"
+                      >
+                        Add to Cart
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -66,8 +72,8 @@ export class DisconnectedAllMovies extends Component {
 const mapStateToProps = state => {
   return {
     movies: state.movies,
-    user:state.user,
-    GuestCart: state.GuestCart
+
+    user: state.user
   }
 }
 
@@ -76,11 +82,13 @@ const mapDispatchToProps = dispatch => {
     fetchMovies: function() {
       return dispatch(allMoviesThunk())
     },
-    addToCart: (userId, movieId) => dispatch(addToCartThunk(userId, movieId)),
-    addToGuestCart: movie => dispatch(addToGuestCart(movie))
+
+    addToCart: (userId, movieId, movie) =>
+      dispatch(addToCartThunk(userId, movieId, movie))
   }
 }
 
-export const AllMovies = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedAllMovies
-)
+export const AllMovies = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisconnectedAllMovies)

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchMovieThunk} from '../store/singleMovie'
 import {addToCartThunk} from '../store/cart'
-import {addToGuestCart} from '../store/guestCart'
 
 export class DisconnectedSingleMovie extends Component {
   componentDidMount() {
@@ -10,10 +9,9 @@ export class DisconnectedSingleMovie extends Component {
     this.props.fetchSingleMovie(movieId)
   }
   render() {
-    const {movie, user, addToCart, addToGuestCart} = this.props
+    const {movie, user, addToCart, cart} = this.props
     if (movie && movie.id) {
       return (
-
         <div className="singleMovie">
           <div>
             <img className="image" src={movie.imageUrl} />
@@ -29,10 +27,11 @@ export class DisconnectedSingleMovie extends Component {
                 With supporting text below as a natural lead-in to additional
                 content.
               </p>
+
               {user.id ? (
                 <a
                   href="#"
-                  onClick={() => addToCart(user.id, movie.id)}
+                  onClick={() => addToCart(user, movie.id, movie)}
                   className="btn btn-primary"
                 >
                   Add to Cart
@@ -40,15 +39,14 @@ export class DisconnectedSingleMovie extends Component {
               ) : (
                 <a
                   href="#"
-                  onClick={() => addToGuestCart(movie)}
+                  onClick={() => addToCart(null, null, movie)}
                   className="btn btn-primary"
                 >
-                  Add To Cart
+                  Add to Cart
                 </a>
               )}
             </div>
           </div>
-
         </div>
       )
     } else {
@@ -61,15 +59,15 @@ const mapStateToProps = state => {
   return {
     movie: state.singleMovie,
     user: state.user,
-    GuestCart: state.GuestCart
+    cart: state.cart
   }
 }
 
 //const mapDispatchToProps = {fetchMovieThunk, addToCartThunk}
 const mapDispatchToProps = dispatch => ({
   fetchSingleMovie: id => dispatch(fetchMovieThunk(id)),
-  addToCart: (userId, movieId) => dispatch(addToCartThunk(userId, movieId)),
-  addToGuestCart: movie => dispatch(addToGuestCart(movie))
+  addToCart: (userId, movieId, movie) =>
+    dispatch(addToCartThunk(userId, movieId, movie))
 })
 
 export const SingleMovie = connect(

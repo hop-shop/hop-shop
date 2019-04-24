@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import StripeApp from './StripeApp.js'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
-
+import CartCheckout from './CartCheckout'
 export class DisconnectedCart extends Component {
   componentDidMount() {
     this.props.fetchCart(this.props.match.params.id)
@@ -14,35 +14,65 @@ export class DisconnectedCart extends Component {
     }, 0)
     const {deleteMovieFromCart} = this.props
     return (
-      <div>
+      <div className="container">
         {cart && cart.length ? (
           <div>
-            {cart.map(cartItem => {
-              return (
-                <div key={cartItem.movieId}>
-                  <h3>{cartItem.movie.title}</h3>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      deleteMovieFromCart(cartItem.userId, cartItem.movieId)
-                    }
-                  >
-                    Remove From Cart
-                  </button>
-                  <img
-                    src={cartItem.movie.imageUrl}
-                    className="img-thumbnail"
-                  />
-                  <span>{cartItem.movie.price}</span>
+            <ul className="list-group">
+              <CartCheckout />
+              {cart.map(cartItem => {
+                return (
+                  <li key={cartItem.movieId} className="list-group-item">
+                    <div className="row">
+                      <div className="col-sm">
+                        <img
+                          src={cartItem.movie.imageUrl}
+                          className=" image img-thumbnail"
+                        />
+                      </div>
+                      <div className="col-sm">
+                        <h3>{cartItem.movie.title}</h3>
+                        <span>Price: ${cartItem.movie.price}</span>
+                      </div>
+                      <div className="col-sm">
+                        <button
+                          className="close"
+                          aria-label="Close"
+                          type="button"
+                          onClick={() =>
+                            deleteMovieFromCart(
+                              cartItem.userId,
+                              cartItem.movieId
+                            )
+                          }
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
+              <li className="list-group-item">
+                <div className="row">
+                  <div className="col-sm">
+                    <span className="justify-left">
+                      Total Price:{' '}
+                      {cart.reduce((a, b) => {
+                        return +(a + b.movie.price)
+                      }, 0)}
+                    </span>
+                  </div>
                 </div>
-              )
-            })}
-            <div>
-              <span>
-                Total Price:{totalPrice}
+              </li>
+              <div className="card text-center">
+                <div className="card-header">
+                  <a href="#" className="btn btn-primary">
+                    Checkout Now
+                  </a>
+                </div>
+              </div>
+            </ul>
 
-              </span>
-            </div>
             <div>
               <StripeApp />
             </div>
@@ -52,7 +82,6 @@ export class DisconnectedCart extends Component {
         )}
       </div>
     )
-
   }
 }
 
@@ -73,6 +102,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export const Cart = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedCart
-)
+export const Cart = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisconnectedCart)

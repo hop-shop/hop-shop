@@ -4,26 +4,26 @@ import axios from 'axios'
 const SINGLE_MOVIE = 'SINGLE_MOVIE'
 
 //action creator
-const getSingleMovie = (movie) => ({
+const getSingleMovie = movie => ({
   type: SINGLE_MOVIE,
   movie
 })
 
-export const fetchMovieThunk = (id) => async dispatch => {
-    try {
-      // console.log('Thunk helloz')
-      const {data} = await axios.get(`/api/movies/${id}`)
-      dispatch(getSingleMovie(data))
-    } catch (err) {
-      console.error(err)
-    }
+export const fetchMovieThunk = id => async dispatch => {
+  try {
+    // console.log('Thunk helloz')
+    const {data} = await axios.get(`/api/movies/${id}`)
+    dispatch(getSingleMovie(data))
+  } catch (err) {
+    console.error(err)
   }
+}
 
-  export default function(state = {}, action) {
-    switch(action.type) {
-      case SINGLE_MOVIE:
+export default function(state = {}, action) {
+  switch (action.type) {
+    case SINGLE_MOVIE:
       return {...action.movie}
-      default:
+    default:
       return state
-    }
   }
+}
