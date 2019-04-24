@@ -1,43 +1,69 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
-
+import CartCheckout from './CartCheckout'
 export class DisconnectedGuestCart extends Component {
   componentDidMount() {
     this.props.fetchCart()
+    console.log('called!')
   }
   render() {
     const cart = this.props.cart
-    console.log('the cart!', cart)
     const {deleteMovieFromCart} = this.props
     return (
-      <div>
+      <div className="container">
         {cart && cart.length ? (
           <div>
-            {cart.map((cartItem, index) => {
-              console.log(cartItem)
-              return (
-                <div key={cartItem.id}>
-                  <h3>{cartItem.title}</h3>
-                  <button
-                    type="button"
-                    onClick={() => deleteMovieFromCart(null, index)}
-                  >
-                    Remove From Cart
-                  </button>
-                  <img src={cartItem.imageUrl} className="img-thumbnail" />
-                  <span>{cartItem.price}</span>
+            <ul className="list-group">
+              <CartCheckout />
+              {cart.map((cartItem, index) => {
+                return (
+                  <li key={cartItem.id} className="list-group-item">
+                    <div className="row">
+                      <div className="col-sm">
+                        <img
+                          src={cartItem.imageUrl}
+                          className="image img-thumbnail"
+                        />
+                      </div>
+                      <div className="col-sm">
+                        <h3>{cartItem.title}</h3>
+                        <span>Price: ${cartItem.price}</span>
+                      </div>
+                      <div className="col-sm">
+                        <button
+                          className="close button"
+                          aria-label="Close"
+                          type="button"
+                          onClick={() => deleteMovieFromCart(null, index)}
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
+              <li className="list-group-item">
+                <div className="row ">
+                  <div className="col-sm">
+                    <span className="justify-left">
+                      Total Price:{' '}
+                      {cart.reduce((a, b) => {
+                        return +(a + b.price)
+                      }, 0)}
+                    </span>
+                  </div>
                 </div>
-              )
-            })}
-            <div>
-              <span>
-                Total Price:{' '}
-                {cart.reduce((a, b) => {
-                  return +(a + b.price)
-                }, 0)}
-              </span>
-            </div>
+              </li>
+              <div className="card text-center">
+                <div className="card-header">
+                  <a href="#" className="btn btn-primary">
+                    Checkout Now
+                  </a>
+                </div>
+              </div>
+            </ul>
           </div>
         ) : (
           'No Items Currently in the Cart'
@@ -55,8 +81,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCart: function(userId) {
-      return dispatch(getCartThunk(userId))
+    fetchCart: function() {
+      return dispatch(getCartThunk())
     },
     deleteMovieFromCart: function(userId, movieId) {
       return dispatch(deleteMovieFromCart(userId, movieId))

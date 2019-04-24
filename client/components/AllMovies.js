@@ -4,7 +4,7 @@ import {allMoviesThunk} from '../store/movie'
 import {addToCartThunk} from '../store/cart'
 import {Link} from 'react-router-dom'
 let styles1 = {
-  maxWidth: '500px'
+  maxWidth: '400px'
 }
 
 export class DisconnectedAllMovies extends Component {

@@ -14,12 +14,33 @@ const deletedMovie = movieId => ({
   type: DELETE_MOVIE,
   movieId
 })
+export const getCartThunk = userId => async dispatch => {
+  if (userId !== undefined) {
+    try {
+      console.log('before axios')
+      const {data} = await axios.get(`/api/users/${userId}/cart`)
+      console.log('the data', data)
+      dispatch(getCart(data))
+    } catch (err) {
+      console.error(err)
+    }
+  } else {
+    try {
+      const data = JSON.parse(localStorage.getItem('items'))
+      dispatch(getCart(data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 
 //Thunk
 export const addToCartThunk = (user, movieId, movie) => async dispatch => {
   if (user) {
     try {
       await axios.post(`/api/users/${user.id}/cart`, {movieId})
+      const {data} = await axios.get(`/api/users/${user.id}/cart`)
+      dispatch(getCart(data))
     } catch (err) {
       console.error(err)
     }
@@ -30,25 +51,10 @@ export const addToCartThunk = (user, movieId, movie) => async dispatch => {
         ? JSON.parse(localStorage.getItem('items'))
         : []
 
+      console.log(movie)
       itemsArray.push(movie)
       localStorage.setItem('items', JSON.stringify(itemsArray))
-    } catch (err) {
-      console.error(err)
-    }
-  }
-}
-
-export const getCartThunk = userId => async dispatch => {
-  if (userId !== undefined) {
-    try {
-      const {data} = await axios.get(`/api/users/${userId}/cart`)
-      dispatch(getCart(data))
-    } catch (err) {
-      console.error(err)
-    }
-  } else {
-    try {
-      const data = JSON.parse(localStorage.getItem('items'))
+      dispatch(getCart(itemsArray))
     } catch (err) {
       console.error(err)
     }

@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  padding-bottom: 30px;
 }
 
 a {
@@ -23,7 +24,7 @@ form div {
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .navs {
@@ -36,10 +37,10 @@ form div {
 
 .singleMovie {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .image {
-  height: 250px;
-  width: auto;
+  width: 230px;
+  height: auto;
 }
