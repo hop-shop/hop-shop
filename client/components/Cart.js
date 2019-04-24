@@ -4,13 +4,16 @@ import StripeApp from './StripeApp.js'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
 
 
+
 export class DisconnectedCart extends Component {
   componentDidMount() {
     this.props.fetchCart(this.props.match.params.id)
   }
   render() {
     const cart = this.props.cart
-
+    const totalPrice = cart.reduce((a, b) => {
+      return +(a + b.movie.price)
+    }, 0)
     const {deleteMovieFromCart} = this.props
     return (
       <div>
@@ -38,11 +41,12 @@ export class DisconnectedCart extends Component {
             })}
             <div>
               <span>
-                Total Price:{' '}
-                {cart.reduce((a, b) => {
-                  return +(a + b.movie.price)
-                }, 0)}
+                Total Price:{totalPrice}
+
               </span>
+            </div>
+            <div>
+              <StripeApp totalPrice = {totalPrice}/>
             </div>
           </div>
         ) : (

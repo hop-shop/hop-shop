@@ -1,10 +1,8 @@
 const router = require('express').Router()
 const {User, Cart, Movie} = require('../db/models')
-<<<<<<< HEAD
+const stripe = require("stripe")("sk_test_jXmZIDSSw86yxJkSpGwwao4G00YlkZfWkG")
 const sequelize = require('sequelize')
 
-=======
->>>>>>> master
 module.exports = router
 //all routes are mounted to /api/users
 
@@ -55,17 +53,17 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
-<<<<<<< HEAD
 router.post("/charge", async (req, res) => {
-  //console.log(`charge = ${(await JSON.stringify(req.body))}`)
-
   try {
-    const charge = JSON.parse(await (req.body))
+    console.log(req.user)
+
+    const charge = await (req.body)
     let {status} = await stripe.charges.create({
-      amount: 2000,
+      amount: 1000,
       currency: "usd",
-      description: "An example charge",
-      source: charge.id
+      description: "Movie purchase",
+      source: charge.id,
+      customer:customer.id
     });
 
     res.json({status});
@@ -73,7 +71,7 @@ router.post("/charge", async (req, res) => {
     res.status(500).end();
   }
 });
-=======
+
 router.delete('/:userId/cart/:movieId', async (req, res, next) => {
   try {
     await Cart.destroy({
@@ -87,4 +85,4 @@ router.delete('/:userId/cart/:movieId', async (req, res, next) => {
     next(error)
   }
 })
->>>>>>> master
+
