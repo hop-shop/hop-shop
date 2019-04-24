@@ -7,8 +7,9 @@ import movies from './movie'
 import cart from './cart'
 import singleMovie from './singleMovie'
 import GuestCart from './guestCart'
+import formStatus from './form'
 
-const reducer = combineReducers({cart, user, movies, singleMovie, GuestCart})
+const reducer = combineReducers({cart, user, movies, singleMovie, GuestCart,formStatus})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

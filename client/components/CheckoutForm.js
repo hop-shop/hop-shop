@@ -1,30 +1,31 @@
 import React, {Component} from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 import {connect} from 'react-redux'
-import axios from 'axios'
+import { sendPayment } from '../store/form';
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {complete: false};
-    this.submit = this.submit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async submit(ev) {
+  handleSubmit(ev) {
     let {user} = this.props
     let {token} = await this.props.stripe.createToken({name: user.email});
-    let {data} = await axios.post(`/api/users/charge`,token)
-  if (data) this.setState({complete: true});
+    this.props.formStatus(token)
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    const {formStatus} = this.props
+
+    if (formStatus) return <h1>Purchase Complete</h1>;
 
     return (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <CardElement/>
-        <button onClick={this.submit}>Send</button>
+        <button onClick={this.handleSubmit}>Send</button>
       </div>
     );
   }
@@ -32,10 +33,16 @@ class CheckoutForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies,
-    user:state.user
+    user : state.user,
+    formStatus: state.formStatus
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    formStatus: function(token) {
+      return dispatch(sendPayment(token))
+    }
   }
 }
 
-
-export default injectStripe(connect(mapStateToProps)(CheckoutForm));
+export default injectStripe(connect(mapStateToProps,mapDispatchToProps)(CheckoutForm));
