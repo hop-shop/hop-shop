@@ -11,13 +11,9 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    let {totalPrice,user} = this.props
-    console.log(totalPrice)
+    let {user} = this.props
     let {token} = await this.props.stripe.createToken({name: user.email});
-    console.log(token)
-    //token.price = totalPrice
     let {data} = await axios.post(`/api/users/charge`,token)
-    console.log(data)
   if (data) this.setState({complete: true});
   }
 

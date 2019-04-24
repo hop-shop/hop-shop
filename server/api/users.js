@@ -16,6 +16,24 @@ function adminUserCheck(req, res, next) {
   }
 }
 
+function totalPrice(userId){
+  const cart = Cart.findAll({
+    where: {
+      userId: userId,
+      purchased: false
+    },
+    include: [
+      {
+        model: Movie
+      }
+    ]
+  })
+  return cart.reduce((a, b) => {
+    return (a + b.movie.price)
+  }, 0)
+}
+
+
 router.get('/', adminUserCheck, async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -42,7 +60,7 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart', adminUserCheck, async (req, res, next) => {
+router.get('/:userId/cart', async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
       where: {
@@ -63,17 +81,18 @@ router.get('/:userId/cart', adminUserCheck, async (req, res, next) => {
 
 router.post("/charge", async (req, res) => {
   try {
-    console.log(req.user)
-
     const charge = await (req.body)
+    let amount = await totalPrice(req.user.id)
+    let customer = await stripe.customers.create(
+      {email:req.user.email,
+        source: charge.id})
+    amount = (amount *100)
     let {status} = await stripe.charges.create({
-      amount: 1000,
+      amount: amount,
       currency: "usd",
       description: "Movie purchase",
-      source: charge.id,
       customer:customer.id
     })
-
     res.json({status});
   } catch (err) {
     res.status(500).end();

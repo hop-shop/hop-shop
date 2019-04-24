@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import StripeApp from './StripeApp.js'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
 
-
-
 export class DisconnectedCart extends Component {
   componentDidMount() {
     this.props.fetchCart(this.props.match.params.id)
