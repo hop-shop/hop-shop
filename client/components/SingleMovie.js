@@ -13,6 +13,7 @@ export class DisconnectedSingleMovie extends Component {
     const {movie, user, addToCart, addToGuestCart} = this.props
     if (movie && movie.id) {
       return (
+
         <div className="singleMovie">
           <div>
             <img className="image" src={movie.imageUrl} />
@@ -47,6 +48,7 @@ export class DisconnectedSingleMovie extends Component {
               )}
             </div>
           </div>
+
         </div>
       )
     } else {
