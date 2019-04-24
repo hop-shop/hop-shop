@@ -52,7 +52,7 @@ export class DisconnectedNavbar extends Component {
                   Movies
                 </Link>
                 <Link className="navs" to="/guest/cart">
-                  Cart ()
+                  Cart
                 </Link>
               </div>
             )}
