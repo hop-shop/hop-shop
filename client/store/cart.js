@@ -42,7 +42,6 @@ export const getCartThunk = userId => async dispatch => {
   if (userId !== undefined) {
     try {
       const {data} = await axios.get(`/api/users/${userId}/cart`)
-      console.log('after axios', data)
       dispatch(getCart(data))
     } catch (err) {
       console.error(err)
@@ -50,7 +49,6 @@ export const getCartThunk = userId => async dispatch => {
   } else {
     try {
       const data = JSON.parse(localStorage.getItem('items'))
-      console.log('the data', data)
     } catch (err) {
       console.error(err)
     }
@@ -62,9 +60,7 @@ export const deleteMovieFromCart = (userId, movieId) => {
     if (!userId) {
       try {
         const data = JSON.parse(localStorage.getItem('items'))
-        console.log('before', data)
         data.splice(movieId, 1)
-        console.log('the data after', data)
         localStorage.setItem('items', JSON.stringify(data))
         dispatch(getCart(data))
       } catch (err) {

@@ -20,7 +20,7 @@ export class DisconnectedCart extends Component {
                   <button
                     type="button"
                     onClick={() =>
-                      deleteMovieFromCart(cartItem.movie.id, cartItem.movie.id)
+                      deleteMovieFromCart(cartItem.userId, cartItem.movieId)
                     }
                   >
                     Remove From Cart
