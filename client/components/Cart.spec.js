@@ -46,7 +46,6 @@ describe('Cart view', () => {
       <DisconnectedCart fetchCart={fetchCart} cart={fakeCart} match={match} />
     )
   })
-  console.log(cart)
   it('renders the cart', () => {
     expect(
       cart

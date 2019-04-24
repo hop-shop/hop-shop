@@ -10,7 +10,6 @@ export class DisconnectedNavbar extends Component {
     if (this.props.user.id) {
       this.props.fetchCart(this.props.user.id)
     } else {
-      console.log('fetching')
       this.props.fetchCart()
     }
   }

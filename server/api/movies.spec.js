@@ -33,8 +33,8 @@ describe('Movie routes', () => {
       expect(res.body[0].title).to.be.equal(movieTitle)
       expect(res.body[0].price).to.be.equal(moviePrice)
     })
-  }) // end describe('/api/movies')
-}) // end describe('Movies routes')
+  })
+})
 
 
 

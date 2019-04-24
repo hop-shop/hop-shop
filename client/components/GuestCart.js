@@ -6,7 +6,6 @@ import CartCheckout from './CartCheckout'
 export class DisconnectedGuestCart extends Component {
   componentDidMount() {
     this.props.fetchCart()
-    console.log('called!')
   }
   render() {
     const cart = this.props.cart
