@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 import {connect} from 'react-redux'
-import { sendPayment } from '../store/form';
+import axios from 'axios'
+import {getCartThunk} from '../store/cart'
+//import { sendPayment } from '../store/form';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -13,13 +15,16 @@ class CheckoutForm extends Component {
   async handleSubmit(ev) {
     let {user} = this.props
     let {token} = await this.props.stripe.createToken({name: user.email});
-    this.props.formStatus(token)
+    let {data} = await axios.post(`/api/users/charge`,token)
+    if (data) {
+      this.setState({complete: true})
+      this.props.fetchCart(this.props.user.id)
+    };
   }
 
   render() {
-    const {formStatus} = this.props
 
-    if (formStatus) return <h1>Purchase Complete</h1>;
+    if (this.state.complete) return <h1>Purchase Complete</h1>;
 
     return (
       <div className="checkout">
@@ -34,13 +39,12 @@ class CheckoutForm extends Component {
 const mapStateToProps = state => {
   return {
     user : state.user,
-    formStatus: state.formStatus
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    formStatus: function(token) {
-      return dispatch(sendPayment(token))
+    fetchCart: function(userId) {
+      return dispatch(getCartThunk(userId))
     }
   }
 }

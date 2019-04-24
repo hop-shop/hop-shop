@@ -93,6 +93,11 @@ router.post("/charge", async (req, res) => {
       description: "Movie purchase",
       customer:customer.id
     })
+    let cart = await Cart.update({
+      purchased:true
+    },{
+      where:{userId:req.user.id}
+    })
     res.json({status});
   } catch (err) {
     res.status(500).end();
