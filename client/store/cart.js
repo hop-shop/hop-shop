@@ -16,30 +16,67 @@ const deletedMovie = movieId => ({
 })
 
 //Thunk
-export const addToCartThunk = (userId, movieId) => async dispatch => {
-  try {
-    const {data} = await axios.post(`/api/users/${userId}/cart`, {movieId})
-  } catch (err) {
-    console.error(err)
+export const addToCartThunk = (user, movieId, movie) => async dispatch => {
+  if (user) {
+    try {
+      await axios.post(`/api/users/${user.id}/cart`, {movieId})
+    } catch (err) {
+      console.error(err)
+    }
+  } else {
+    try {
+      console.log('here!')
+      let itemsArray = localStorage.getItem('items')
+        ? JSON.parse(localStorage.getItem('items'))
+        : []
+
+      itemsArray.push(movie)
+      localStorage.setItem('items', JSON.stringify(itemsArray))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
 export const getCartThunk = userId => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
-  } catch (err) {
-    console.error(err)
+  if (userId !== undefined) {
+    try {
+      const {data} = await axios.get(`/api/users/${userId}/cart`)
+      console.log('after axios', data)
+      dispatch(getCart(data))
+    } catch (err) {
+      console.error(err)
+    }
+  } else {
+    try {
+      const data = JSON.parse(localStorage.getItem('items'))
+      console.log('the data', data)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
 export const deleteMovieFromCart = (userId, movieId) => {
   return async dispatch => {
-    try {
-      await axios.delete(`/api/users/${userId}/cart/${movieId}`)
-      dispatch(deletedMovie(movieId))
-    } catch (error) {
-      console.error(error)
+    if (!userId) {
+      try {
+        const data = JSON.parse(localStorage.getItem('items'))
+        console.log('before', data)
+        data.splice(movieId, 1)
+        console.log('the data after', data)
+        localStorage.setItem('items', JSON.stringify(data))
+        dispatch(getCart(data))
+      } catch (err) {
+        console.error(err)
+      }
+    } else {
+      try {
+        await axios.delete(`/api/users/${userId}/cart/${movieId}`)
+        dispatch(deletedMovie(movieId))
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
