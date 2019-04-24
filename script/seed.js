@@ -271,11 +271,8 @@ const movies = [
 
 async function seed() {
   try {
-<<<<<<< HEAD
     await db.sync({force: true})
-=======
-    await db.sync({force:true})
->>>>>>> master
+
     console.log('db synced!')
 
     await Promise.all(

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, deleteMovieFromCart} from '../store/cart'
+import StripeApp from './StripeApp.js'
 import CartCheckout from './CartCheckout'
 export class DisconnectedGuestCart extends Component {
   componentDidMount() {
@@ -64,6 +65,9 @@ export class DisconnectedGuestCart extends Component {
                 </div>
               </div>
             </ul>
+            <div>
+              <StripeApp />
+            </div>
           </div>
         ) : (
           'No Items Currently in the Cart'

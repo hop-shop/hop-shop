@@ -72,10 +72,7 @@ export class DisconnectedCart extends Component {
                 </div>
               </div>
             </ul>
-            ) })}
-            <div>
-              <span>Total Price:{totalPrice}</span>
-            </div>
+
             <div>
               <StripeApp />
             </div>

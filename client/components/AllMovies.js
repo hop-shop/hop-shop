@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {allMoviesThunk} from '../store/movie'
 import {addToCartThunk} from '../store/cart'
 import {Link} from 'react-router-dom'
-import {addToCartThunk} from '../store/cart'
 
 let styles1 = {
   maxWidth: '400px'
@@ -14,7 +13,7 @@ export class DisconnectedAllMovies extends Component {
     this.props.fetchMovies()
   }
   render() {
-    const {user, addToCart, addToGuestCart} = this.props
+    const {user, addToCart} = this.props
     return (
       <div className="container">
         {this.props.movies.map(movie => {
