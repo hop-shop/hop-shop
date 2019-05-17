@@ -48,3 +48,12 @@ form div {
 .jumbotron{
   margin:20px;
 }
+
+.alignForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.block{
+  margin-left:20px;
+}
