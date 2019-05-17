@@ -55,7 +55,7 @@ export class DisconnectedNavbar extends Component {
                 </Link>
               </div>
             )}
-            <form className="form-inline my-2 my-lg-0">
+            {/* <form className="form-inline my-2 my-lg-0">
               <input
                 className="form-control mr-sm-2"
                 type="search"
@@ -68,7 +68,7 @@ export class DisconnectedNavbar extends Component {
               >
                 Search
               </button>
-            </form>
+            </form> */}
           </div>
         </nav>
         <hr />

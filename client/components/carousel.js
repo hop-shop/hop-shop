@@ -7,10 +7,7 @@ class carousel extends Component {
       <div className="jumbotron">
         <h1 className="display-4">Hopflix has the best flix!</h1>
         <p className="lead">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          One platform to get all your favorite movies. Enjoy a wide selections of available movies.
         </p>
 
         <Link to="/movies">
