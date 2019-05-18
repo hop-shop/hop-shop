@@ -14,6 +14,8 @@ const deletedMovie = movieId => ({
   type: DELETE_MOVIE,
   movieId
 })
+
+//Thunk
 export const getCartThunk = userId => async dispatch => {
   if (userId !== undefined) {
     try {
@@ -31,6 +33,7 @@ export const getCartThunk = userId => async dispatch => {
     }
   }
 }
+
 
 //Thunk
 export const addToCartThunk = (user, movieId, movie) => async dispatch => {

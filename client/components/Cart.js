@@ -12,7 +12,7 @@ export class DisconnectedCart extends Component {
     const {deleteMovieFromCart} = this.props
     return (
       <div className="container">
-        {cart && cart.length ? (
+        {cart && cart.length && (this.props.match.path === '/users/:id/cart') ? (
           <div>
             <ul className="list-group">
               <CartCheckout />
@@ -67,9 +67,8 @@ export class DisconnectedCart extends Component {
             </ul>
             {this.props.match.params.id ?
             <div>
-              {console.log(`here..... ${this.props.match.params.id}`)}
               <StripeApp />
-            </div>:<div></div>}
+            </div> : <span>Please Log in / Sign Up</span>}
           </div>
         ) : (
           'No Items Currently in the Cart'

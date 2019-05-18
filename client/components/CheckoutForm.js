@@ -25,12 +25,13 @@ class CheckoutForm extends Component {
   render() {
 
     if (this.state.complete) return <h1>Purchase Complete</h1>;
-
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement/>
-        <button onClick={this.handleSubmit}>Send</button>
+      <div>
+        {this.props.user.email ? <div className="checkout">
+          <p>Would you like to complete the purchase?</p>
+          <CardElement/>
+          <button onClick={this.handleSubmit}>Send</button>
+        </div>: <div>Please Log In or Sign Up</div>}
       </div>
     );
   }
