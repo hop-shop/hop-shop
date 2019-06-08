@@ -12,7 +12,7 @@ export class DisconnectedCart extends Component {
     const {deleteMovieFromCart} = this.props
     return (
       <div className="container">
-        {cart && cart.length && (this.props.match.path === '/users/:id/cart') ? (
+        {cart && cart.length ? (
           <div>
             <ul className="list-group">
               <CartCheckout />
