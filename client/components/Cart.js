@@ -9,7 +9,6 @@ export class DisconnectedCart extends Component {
   }
   render() {
     const cart = this.props.cart
-
     const {deleteMovieFromCart} = this.props
     return (
       <div className="container">
@@ -66,10 +65,10 @@ export class DisconnectedCart extends Component {
                 <div className="card-header" />
               </div>
             </ul>
-
+            {this.props.match.params.id ?
             <div>
               <StripeApp />
-            </div>
+            </div> : <span>Please Log in / Sign Up</span>}
           </div>
         ) : (
           'No Items Currently in the Cart'
